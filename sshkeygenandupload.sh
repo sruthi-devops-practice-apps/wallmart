@@ -17,16 +17,17 @@ then
 	echo "SSH keys are already present ...."
 else
 	echo " SSH keys are not present..., Create the sshkeys using ssh-keygen command"
-ssh-keygen -t rsa
-echo "SSH Keys successfully generated"
+        ssh-keygen -t rsa
+        echo "SSH Keys successfully generated"
 fi
 
 sshkey='cat ~/.ssh/id_rsa.pub'
 
 if [ $? -eq 0 ]
 then
-	echo " Cpying the key to Github account"
-curl -X POST -H " COntent-type: aaplication/json" -d "{\"title\": \"SSHKEY\",\"key\": \"$sshkey\"}" "https://api.github.com/user/keys?access_token=$token"
+	echo " Copying the key to Github account"
+ 
+        curl -X POST -H " COntent-type: aaplication/json" -d "{\"title\": \"SSHKEY\",\"key\": \"$sshkey\"}" "https://api.github.com/user/keys?access_token=$token"
 #Checking if above command is successful 
 if [ $? -eq 0 ]
 then
@@ -37,6 +38,6 @@ else
 exit 1
 fi
 else 
-echo" Failure in generating the key"
+        echo" Failure in generating the key"
 exit 1
 fi
